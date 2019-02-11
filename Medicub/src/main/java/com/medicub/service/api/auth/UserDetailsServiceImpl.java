@@ -18,11 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.medicub.service.api.data.entity.User applicationUser = userRepository.findByUsername(username);
+        com.medicub.service.api.data.entity.User applicationUser = userRepository.findByUserName(username);
 
         if (applicationUser == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new AuthUser(applicationUser.getUsername(), applicationUser.getPassword(), emptyList());
+        return new AuthUser(applicationUser.getUserName(), applicationUser.getPassword(), emptyList());
     }
 }

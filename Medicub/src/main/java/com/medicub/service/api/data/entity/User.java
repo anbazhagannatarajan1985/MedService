@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,16 +19,9 @@ public class User {
 
     @Id
     private String id;
-
     private String firstName;
     private String lastName;
-    private String username;
+    private String phoneNumber;
     private String password;
-    private String emailAddress;
-    private List<String> roles;
-    private Boolean status;
-    private Date createdDate;
-    private Date lastUpdatedDate;
-    private String createdBy;
-    private String updatedBy;
+    private String userName;
 }

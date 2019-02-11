@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -14,16 +11,10 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class CreateUserModel {
 	private String id;
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotBlank
-    private String loginName;
+    private String phoneNumber;
     private String password;
-    @NotBlank
-    private String emailAddress;
+    private String userName;
 
-    private List<String> roles;
-    private Boolean status;
 }

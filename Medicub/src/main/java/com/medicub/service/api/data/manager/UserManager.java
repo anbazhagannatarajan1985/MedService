@@ -1,6 +1,5 @@
 package com.medicub.service.api.data.manager;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,54 +29,44 @@ public class UserManager {
 
         
         User newUser = new User();
-        User existingUser  = userRepository.findByUsername(createUserModel.getLoginName());
+        User existingUser  = userRepository.findByUserName(createUserModel.getUserName());
         if (createUserModel.getId() == null) {
             if (existingUser != null) {
                 throw new UserNameAlreadyTakenException();
             }
         	newUser.setId(UUID.randomUUID().toString());
-        	newUser.setCreatedDate(Calendar.getInstance().getTime());
-        	newUser.setCreatedBy(createUserModel.getLoginName().toLowerCase());
         	newUser.setPassword(createUserModel.getPassword());
         } else {
         	newUser.setId(createUserModel.getId());
         	newUser.setPassword(existingUser.getPassword());
-        	newUser.setCreatedDate(existingUser.getCreatedDate());
-        	newUser.setCreatedBy(existingUser.getCreatedBy());
         }
-        newUser.setStatus(true);
-        newUser.setEmailAddress(createUserModel.getEmailAddress());
         newUser.setFirstName(createUserModel.getFirstName());
         newUser.setLastName(createUserModel.getLastName());
-        newUser.setUsername(createUserModel.getLoginName().toLowerCase());
-        newUser.setLastUpdatedDate(Calendar.getInstance().getTime());
-        newUser.setUpdatedBy(createUserModel.getLoginName().toLowerCase());
-        
-        newUser.setRoles(createUserModel.getRoles());
+        newUser.setUserName(createUserModel.getUserName());
+        newUser.setPhoneNumber(createUserModel.getPhoneNumber());
 
         User user =  userRepository.save(newUser);
         return user;
     }
     
-    public User updateUser(CreateUserModel createUserModel) throws Exception {
-        User existingUser  = userRepository.findByUsername(createUserModel.getLoginName());
-        if (existingUser == null) {
-            throw new Exception("No such user exist");
-        }
-        User newUser = new User();
-        newUser.setId(createUserModel.getId());
-        newUser.setStatus(true);
-        newUser.setEmailAddress(createUserModel.getEmailAddress());
-        newUser.setFirstName(createUserModel.getFirstName());
-        newUser.setLastName(createUserModel.getLastName());
-        newUser.setUsername(createUserModel.getLoginName());
-        newUser.setCreatedDate(Calendar.getInstance().getTime());
-        newUser.setPassword(createUserModel.getPassword());
-        newUser.setRoles(createUserModel.getRoles());
-
-        User user =  userRepository.save(newUser);
-        return user;
-    }
+//    public User updateUser(CreateUserModel createUserModel) throws Exception {
+//        User existingUser  = userRepository.findByUsername(createUserModel.getLoginName());
+//        if (existingUser == null) {
+//            throw new Exception("No such user exist");
+//        }
+//        User newUser = new User();
+//        newUser.setId(createUserModel.getId());
+//        newUser.setEmailAddress(createUserModel.getEmailAddress());
+//        newUser.setFirstName(createUserModel.getFirstName());
+//        newUser.setLastName(createUserModel.getLastName());
+//        newUser.setUsername(createUserModel.getLoginName());
+//        newUser.setCreatedDate(Calendar.getInstance().getTime());
+//        newUser.setPassword(createUserModel.getPassword());
+//        newUser.setRoles(createUserModel.getRoles());
+//
+//        User user =  userRepository.save(newUser);
+//        return user;
+//    }
     
     /**
      * update password
@@ -86,10 +75,8 @@ public class UserManager {
      * @return
      */
     public Boolean updatePassword(User user) {
-    	User user1  = userRepository.findByUsername(user.getUsername());
+    	User user1  = userRepository.findByUserName(user.getUserName());
     	user1.setPassword(user.getPassword());
-    	user1.setLastUpdatedDate(Calendar.getInstance().getTime());
-    	user1.setUpdatedBy(user1.getId());
     	userRepository.save(user1);
     	return true;
     }
@@ -100,7 +87,7 @@ public class UserManager {
     }
     
     public User getUserByUsername(String emailAddress) {
-    	return userRepository.findByUsername(emailAddress);
+    	return userRepository.findByUserName(emailAddress);
     }
     
     public List<User> getAllUsers() {

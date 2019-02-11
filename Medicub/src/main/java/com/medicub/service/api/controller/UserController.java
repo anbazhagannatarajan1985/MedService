@@ -43,13 +43,13 @@ public class UserController {
         return createUser;
     }
     
-    @ApiOperation(value = "updateUser", notes = "update existing user")
-    @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public User updateUser(@RequestBody CreateUserModel model) throws Exception {
-        model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
-        User createUser = userManager.updateUser(model);
-        return createUser;
-    }
+//    @ApiOperation(value = "updateUser", notes = "update existing user")
+//    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+//    public User updateUser(@RequestBody CreateUserModel model) throws Exception {
+//        model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
+//        User createUser = userManager.updateUser(model);
+//        return createUser;
+//    }
 
 //    @PreAuthorize("hasRole('INTEGRATION_TEST')")
     @ResponseStatus(HttpStatus.ACCEPTED)
